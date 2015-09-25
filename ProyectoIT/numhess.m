@@ -8,7 +8,7 @@ function[H] = numhess(f,x,h)
 
 % Si no se da un valor para h se le asignará el valor de 1.0e-4.
 if( nargin < 3 )
-    h = 10^(-4);
+    h = 1.0e-4;
 end
 
 % Recordando que las dimensiones de la matriz hessiana son del mismo tamaño
