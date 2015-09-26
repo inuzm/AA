@@ -1,7 +1,7 @@
 % ipad.m modela las ventas del iPad con la función logística.
 % Para realizar esto utiliza la información de las ventas durante
 % 16 trimestres; esta información nos permite construir residuales
-% que se usan para estimar ciertos parámetros del modeo logístico.
+% que se usan para estimar ciertos parámetros del modelo logístico.
 close all;
 
 % El vector t representa a los primeros 16 trimestres mientras que
@@ -29,7 +29,7 @@ end
 x0 = [0.1 30 3.5]';
 
 % Se resuelve el problema con el paso de Newton y búsqueda lineal
-% con interpolación cuadráticay se imprime el resultado.
+% con interpolación cuadrática y se imprime el resultado.
 [x_sol, iter] = NewtonBLIC(fobj, x0);
 fprintf('Los parámetros son:\n');
 fprintf('r  = %1.4e\n', x_sol(1));
