@@ -1,5 +1,5 @@
 % NewtonBLIC.m resuelve el problema de la forma:
-% min f(x)
+% 		min f(x)
 % sin restricciones. Esto lo hace con el paso de Newton e interpolación
 % cuadrática.
 % Argumentos de entrada:
