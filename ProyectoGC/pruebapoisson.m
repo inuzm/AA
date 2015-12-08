@@ -1,4 +1,17 @@
 % pruebapoisson.m
+% Este script file sirve para resolver sistemas de ecuaciones de la forma:
+%     A * x = b
+% Donde A es una matriz de poisson
+% b es un vector de unos
+
+% Se encuentra la respuesta x por dos métodos diferentes, gradiente conjugado y 
+% gradiente conjugado precondicionado.
+% El precondicionamiento es de dos formas diferentes, una es usando una matriz
+% de Jacobi y el otro es usando Cholesky incompleto.
+
+% La salida es la impresión de el tipo de precondicionamiento que se usó, el tamaño de 
+% la matriz de poisson, el número de iteraciones que tomo GCPre con ese precondicionamiento
+% y la norma de la diferencia entre la solución de GC y GCPre.
 S = char('Jacobi', 'Cholesky incompleto');
 q = 10:10:30;
 n = q.^2;
