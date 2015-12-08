@@ -75,7 +75,7 @@ xlabel('Año')
 ylabel('Producción por hectárea')
 legend('Producción estimada LM', 'Producción observada')
 
-subplot(2, 2, 3)
+subplot(2, 2, 3:4)
 plot(t, Pt, 'or', t, Pt2, 'ok', t, prodt, 'db', 'linewidth', 3)
 xlabel('Año')
 ylabel('Producción por hectárea')
