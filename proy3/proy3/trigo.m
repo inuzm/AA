@@ -21,28 +21,31 @@ prodt = [11.72, 13.38, 14.10, 13.87, 14.80, 15.68, 14.36, 16.30,...
 P = @(x, t1) x(2) / (1 + (x(2) / x(3) - 1) * exp(-x(1) * t1));
 
 % Con base en los datos obtenidos y la función se crea la
-% función obejetivo queun vector de residuales.
+% función obejetivo que es un vector de residuales.
 robj = @(x) [];
 for k = 1:24
 	robj = @(x) [robj(x); P(x, t(k))-prodt(k)];
 end
 
-% Se establecen los punto inicial para los métodos.
-% x0 = [0.005 1 30]'; % Gauss Newton
-x0 = [0.005 13 4]';
+% Se establecen los puntos iniciales para los métodos.
+x0 = [0.005 1 30]'; % Gauss Newton
+x1 = [0.005 13 4]'; % L-M
 
-% Se resuelve el problema con el paso de Newton y b?squeda lineal
-% con interpolaci?n cuadr?tica y se imprime el resultado.
-% [x_sol, iter] = NewtonBLIC(fobj, x0, 1.0e-6);
-% [x_sol, iter] = GaussNewton(robj, x0);
-[x_sol, iter] = GaussNewtonRC(robj, x0);
+% Se resuelve el problema con ambos métodos:
+[x_sol, iter] = MetodoGaussNewton(robj, x0);
+[x_sol1, iter1] = LevenbergMarquadt(robj, x1);
 
-fprintf('Los par?metros son:\n');
+fprintf('Los parámetros para GN son:\n');
 fprintf('r  = %1.4e\n', x_sol(1));
 fprintf('K  = %1.4e\n', x_sol(2));
 fprintf('P0 = %1.4e\n', x_sol(3));
 
-% Se le asignan los par?metros encontrados a la funci?n log?stica
+fprintf('Los parámetros para LM son:\n');
+fprintf('r  = %1.4e\n', x_sol1(1));
+fprintf('K  = %1.4e\n', x_sol1(2));
+fprintf('P0 = %1.4e\n', x_sol1(3));
+
+% Se le asignan los parámetros encontrados a la función logística
 % y se calculan los valores aproximados en cada trimestre y se
 % guardan en la variable Pt.
 P_sol = @(t1) P(x_sol, t1);
@@ -52,11 +55,31 @@ for k = 1:24
 	Pt(k) = P_sol(t(k));
 end
 
-% Se grafica la soluci?n final junto con los datos que se usaron.
-plot(t, Pt, 'or', 'linewidth', 3)
-hold on;
-plot(t, prodt, 'db', 'linewidth', 3)
-xlabel('A?o')
-ylabel('Producci?n por hect?rea')
-legend('Producci?n estimada', 'Producci?n observada')
+P_sol2 = @(t1) P(x_sol1, t1);
+Pt2 = zeros(16, 1);
+
+for k = 1:24
+	Pt2(k) = P_sol2(t(k));
+end
+
+% Se grafican ambas soluciones finales junto con los datos que se usaron.
+subplot(2, 2, 1)
+plot(t, Pt, 'or', t, prodt, 'db', 'linewidth', 3)
+xlabel('Año')
+ylabel('Producción por hectárea')
+legend('Producción estimada GN', 'Producción observada')
+
+subplot(2, 2, 2)
+plot(t, Pt2, 'ok', t, prodt, 'db', 'linewidth', 3)
+xlabel('Año')
+ylabel('Producción por hectárea')
+legend('Producción estimada LM', 'Producción observada')
+
+subplot(2, 2, 3)
+plot(t, Pt, 'or', t, Pt2, 'ok', t, prodt, 'db', 'linewidth', 3)
+xlabel('Año')
+ylabel('Producción por hectárea')
+legend('Producción estimada GN', 'Producción estimada LM',...
+'Producción observada')
+
 hold off;
