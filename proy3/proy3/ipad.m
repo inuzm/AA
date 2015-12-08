@@ -73,7 +73,7 @@ xlabel('Trimestre')
 ylabel('Ventas en millones')
 legend('Ventas estimadas LM', 'Ventas reales')
 
-subplot(2, 2, 3)
+subplot(2, 2, 3:4)
 plot(t, Pt, 'or', t, Pt2, 'ok', t, v, 'db', 'linewidth', 3)
 xlabel('Trimestre')
 ylabel('Ventas en millones')
