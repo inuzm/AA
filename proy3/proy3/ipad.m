@@ -34,7 +34,7 @@ x1 = [0.1 30 3.5]';
 
 [x_sol, iter] = GaussNewtonRC(robj, x0);
 [x_sol1, iter1] = LevenbergMarquadt(robj, x1);
-fprintf('Los par?metros son:\n');
+fprintf('Los parámetros son:\n');
 fprintf('r  = %1.4e\n', x_sol(1));
 fprintf('K  = %1.4e\n', x_sol(2));
 fprintf('P0 = %1.4e\n', x_sol(3));
