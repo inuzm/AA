@@ -11,7 +11,7 @@ t = [1:16]';
 v = [3.27 4.19 7.33 4.69 9.25 11.12 15.30 11.80 17.00 14.00 22.90...
 	 19.50 14.60 14.10 26.00 16.35]';
 
-% La funci?n logística con
+% La función logística con
 % 		r = x(1)
 % 		K = x(2)
 % 		P0 = x(3)
@@ -24,13 +24,11 @@ for k = 1:16
 	robj = @(x) [robj(x); P(x, t(k))-v(k)];
 end
 
-% Se establece el punto inicial para el método de búsqueda lineal
-% con paso de Newton.
+% Se establece el punto inicial para ambos métodos.
 x0 = [0.1 30 3.5]';
 x1 = [0.1 30 3.5]';
 
-% Se resuelve el problema con el paso de Newton y b?squeda lineal
-% con interpolaci?n cuadr?tica y se imprime el resultado.
+% Se resuelve el problema.
 
 [x_sol, iter] = GaussNewtonRC(robj, x0);
 [x_sol1, iter1] = LevenbergMarquadt(robj, x1);
@@ -46,6 +44,7 @@ fprintf('P0 = %1.4e\n', x_sol1(3));
 % Se le asignan los parámetros encontrados a la función logística
 % y se calculan los valores aproximados en cada trimestre y se
 % guardan en la variable Pt.
+
 P_sol = @(t1) P(x_sol, t1);
 
 Pt = zeros(16, 1);
@@ -63,22 +62,22 @@ end
 % Se grafican ambas soluciones finales junto con los datos que se usaron.
 
 subplot(2, 2, 1)
-plot(t, Pt, 'or', t, prodt, 'db', 'linewidth', 3)
-xlabel('Año')
-ylabel('Producción por hectárea')
-legend('Producción estimada GN', 'Producción observada')
+plot(t, Pt, 'or', t, v, 'db', 'linewidth', 3)
+xlabel('Trimestre')
+ylabel('Ventas en millones')
+legend('Ventas estimadas GN', 'Ventas reales')
 
 subplot(2, 2, 2)
-plot(t, Pt2, 'ok', t, prodt, 'db', 'linewidth', 3)
-xlabel('Año')
-ylabel('Producción por hectárea')
-legend('Producción estimada LM', 'Producción observada')
+plot(t, Pt2, 'ok', t, v, 'db', 'linewidth', 3)
+xlabel('Trimestre')
+ylabel('Ventas en millones')
+legend('Ventas estimadas LM', 'Ventas reales')
 
 subplot(2, 2, 3)
-plot(t, Pt, 'or', t, Pt2, 'ok', t, prodt, 'db', 'linewidth', 3)
-xlabel('Año')
-ylabel('Producción por hectárea')
-legend('Producción estimada GN', 'Producción estimada LM',...
-'Producción observada')
+plot(t, Pt, 'or', t, Pt2, 'ok', t, v, 'db', 'linewidth', 3)
+xlabel('Trimestre')
+ylabel('Ventas en millones')
+legend('Ventas estimadas GN', 'Ventas estimadas LM',...
+'Ventas reales')
 
 hold off;
