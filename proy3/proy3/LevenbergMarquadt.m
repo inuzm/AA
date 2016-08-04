@@ -1,4 +1,4 @@
-function [x,iter] = GaussNewtonRC(fname,x0)
+function [x,iter] = LevenbergMarquadt(fname,x0)
 
 maxiter = 1000;
 maxjter = 10;

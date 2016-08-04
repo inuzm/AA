@@ -1,17 +1,19 @@
 function [ Q,R ] = QRHouseholder( A )
-%programa que calcula la factorizacion QR de la Matriz A
+
+% Programa que calcula la factorizacion QR de la Matriz A
+% por medio de transformaciones de Househoder.
 
 [m,n] = size (A);
 R = A;
 Q = eye(m);
 
-if m == n
+if( m == n )
     lim = n-1;
 else
     lim = min(n,m);
 end
 
-for k=1:lim
+for k = 1:lim
     a = R(k:m,k);
     e = zeros(m-k+1,1);
     e(1) = 1;
